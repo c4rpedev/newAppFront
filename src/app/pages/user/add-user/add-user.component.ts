@@ -116,11 +116,13 @@ export class AddUserComponent implements OnInit {
 
   //verificar si es un CI real
   validarCI(form: NgForm) {
-    let CI = form.value.CI.toString();
-    if (CI.length != 11) {
-      this.correctCI = true;
-    } else {
-      this.correctCI = false;
+    if (form.value.CI) {
+      let CI = form.value.CI.toString();
+      if (CI.length != 11) {
+        this.correctCI = true;
+      } else {
+        this.correctCI = false;
+      }
     }
   }
 }

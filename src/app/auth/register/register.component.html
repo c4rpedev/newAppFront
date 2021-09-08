@@ -9,38 +9,71 @@
         <h2 class="mb-4" style="text-align: center;">Regístrate!</h2>
         <form #form="ngForm" (ngSubmit)="Register(form)">
 
+          <!-- NameImput -->
+          <div class="form-outline mb-2">
+            <input type="text" class="form-control form-control-lg" placeholder="Nombre" name="name" id="name" required
+              [(ngModel)]="authService.logedUser.name" #name="ngModel" autofocus>
+            <span *ngIf="name.invalid && name.touched" style="color: red;">Este campo es
+              requerido.</span>
+          </div>
+
           <!-- UserName and CI input -->
           <div class="row">
-            <div class="form-outline mb-3 col">
+            <div class="form-outline mb-2 col">
               <input required name="username" type="text" class="form-control form-control-lg"
                 placeholder="Nombre de Usuario" [(ngModel)]="authService.logedUser.username" #username="ngModel" />
+              <span *ngIf="username.invalid && username.touched" style="color: red;">Este campo es
+                requerido.</span>
             </div>
-            <div class="form-outline mb-3 col">
+
+            <div class="form-outline mb-2 col">
               <input required name="CI" type="number" (keyup)="validarCI(form)" class="form-control form-control-lg"
                 placeholder="CI" [(ngModel)]="authService.logedUser.CI" #CI="ngModel" />
+              <span *ngIf="correctCI && CI.touched" style="color: red;">CI incorrecto.</span>
+              <span *ngIf="CI.invalid && CI.touched" style="color: red;">Este campo es
+                requerido.</span>
             </div>
           </div>
 
           <!-- Email input -->
-          <div class="form-outline mb-4">
-            <input required name="email" type="email" email id="form3Example3" class="form-control form-control-lg"
-              placeholder="Correo" [(ngModel)]="authService.logedUser.email" #email="ngModel" />
+          <div class="form-outline mb-2">
+            <input required name="email" type="email" email class="form-control form-control-lg" placeholder="Correo"
+              [(ngModel)]="authService.logedUser.email" #email="ngModel" />
+            <div *ngIf="email.errors">
+              <small *ngIf="email.errors.required && email.touched" style="color: red;">Email requerido.</small>
+              <small *ngIf="email.errors.email  && email.touched" style="color: red;">Email incorrecto.</small>
+            </div>
           </div>
 
           <!-- Password input -->
           <div class="row">
-            <div class="form-outline mb-3 col">
+            <div class="form-outline mb-2 col">
               <input type="password" class="form-control form-control-lg" placeholder="Repetir Contraseña"
                 name="password" id="password" required minlength="8" [(ngModel)]="authService.logedUser.password"
                 #password="ngModel">
+              <div *ngIf="password.errors">
+                <small *ngIf="password.errors.required && password.touched" style="color: red;">Este campo es
+                  requerido.</small>
+                <small *ngIf="password.errors.minlength && password.touched" style="color: red;">Este campo debe
+                  tener al menos {{password.errors.minlength.requiredLength}} caracteres.</small>
+              </div>
+              <small *ngIf="cpass.invalid  && cpass.touched && password.touched" style="color: red;">Las contraseñas no
+                coinciden.</small>
             </div>
-            <div class="form-outline mb-3 col">
+            <div class="form-outline mb-2 col">
               <input type="password" class="form-control form-control-lg" placeholder="Contraseña" name="checkpass"
                 id="checkpass" required minlength="8" pattern="{{authService.logedUser.password}}" #cpass="ngModel"
                 placeholder="Contraseña" [(ngModel)]="repeatpassword">
+              <div *ngIf="cpass.errors">
+                <small *ngIf="cpass.errors.required && cpass.touched" style="color: red;">Este campo es
+                  requerido.</small>
+                <small *ngIf="cpass.errors.minlength && cpass.touched" style="color: red;">Este campo debe
+                  tener al menos {{cpass.errors.minlength.requiredLength}} caracteres.</small>
+              </div>
             </div>
           </div>
 
+          <!-- Error Api -->
           <p *ngIf="error" class="mt-2" style="color:red">{{error}}</p>
 
           <div class="text-center text-lg-start mt-4 pt-2">
@@ -51,18 +84,13 @@
           </div>
 
         </form>
-
-
       </div>
     </div>
   </div>
   <div
     class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
-    <!-- Copyright -->
     <div class="text-white mb-3 mb-md-0">
       Copyright © 2020. All rights reserved.
     </div>
-    <!-- Copyright -->
-
   </div>
 </section>
