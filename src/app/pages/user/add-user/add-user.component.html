@@ -1,0 +1,85 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">
+      Nuevo Usuario
+    </h4>
+  </div>
+  <div class="card-body">
+    <div class="tab-content p-0">
+      <div class="chart tab-pane active" id="revenue-chart1" style="position: relative; height: auto;">
+        <div class="row">
+          <div class="col-lg-7">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Crear Usuario!</h1>
+              </div>
+              <form #form="ngForm" (ngSubmit)="Register(form)" class="user">
+                <!-- NameImput -->
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="text" hidden name="_id" id="_id" [(ngModel)]="userService.selectedUser._id"
+                      #_id="ngModel">
+                    <input type="text" class="form-control form-control-user" placeholder="Nombre" name="name" id="name"
+                      required [(ngModel)]="userService.selectedUser.name" #name="ngModel" autofocus>
+                  </div>
+                </div>
+                <!-- EmailImput -->
+                <div class="form-group">
+                  <input type="email" class="form-control form-control-user" placeholder="Correo" name="email"
+                    id="email" required email [(ngModel)]="userService.selectedUser.email" #email="ngModel">
+                </div>
+                <!-- CI y UserName Imput -->
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="number" class="form-control form-control-user" placeholder="CI" name="CI" id="CI"
+                      required minlength="11" [(ngModel)]="userService.selectedUser.CI" #CI="ngModel">
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control form-control-user" placeholder="Nombre de Usuario"
+                      name="username" id="username" required [(ngModel)]="userService.selectedUser.username"
+                      #username="ngModel">
+                  </div>
+                </div>
+                <!-- PasswordImput -->
+                <div class="form-group row" *ngIf="!userService.selectedUser._id">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="password" class="form-control form-control-user" placeholder="Repetir Contraseña"
+                      name="password" id="password" required minlength="8"
+                      [(ngModel)]="userService.selectedUser.password" #password="ngModel">
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="password" class="form-control form-control-user" placeholder="Contraseña"
+                      name="checkpass" id="checkpass" required minlength="8"
+                      pattern="{{userService.selectedUser.password}}" #cpass="ngModel" placeholder="Contraseña"
+                      [(ngModel)]="repeatpassword">
+                  </div>
+                </div>
+                <!-- Error de api -->
+                <a *ngIf="error" style="color: red;">{{error}}</a>
+
+                <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-user btn-block">
+                  Registrar Usuario
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Roles! -->
+          <div class="col-lg-5">
+            <div class="pt-3 pr-5 pl-5 pb-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Roles</h1>
+              </div>
+              <ul class="list-group">
+                <li *ngFor="let rol of Roles" class="list-group-item list-group-item-action"
+                  [class.active]="verifyRol(rol)" (click)="userRol(rol)">
+                  {{rol.name}}
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

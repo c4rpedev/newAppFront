@@ -1,0 +1,40 @@
+import { Role } from './../../models/role';
+import { User } from './../../models/user';
+import { Router } from '@angular/router';
+import { AuthService } from './../../services/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+
+  error: string;
+  constructor(public authService: AuthService, public route: Router) { }
+
+  ngOnInit(): void {
+  }
+
+  Login(form: NgForm) {
+    this.authService.login(form.value)
+      .subscribe(res => {
+        this.error = null;
+        localStorage.setItem("x-access-token", res['token']);
+
+        // guardando datos del usuario en caché
+        this.authService.findUser()
+          .subscribe(res => {
+            this.authService.logedUser = res as User;
+            this.authService.roles = res['roles'] as Role[];
+            this.route.navigate(['/home']);
+          });
+      },
+        err => {
+          this.error = err['error']['message'];
+        })
+  }
+
+}

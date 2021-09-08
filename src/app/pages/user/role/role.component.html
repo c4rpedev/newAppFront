@@ -1,0 +1,52 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">
+      <i class="fas fa-user-cog mr-1" style="font-size: 20px;"></i>
+      Roles de Usuario
+    </h4>
+  </div>
+  <div class="card-body">
+    <div class="tab-content p-0">
+      <div class="chart tab-pane active" id="revenue-chart1" style="position: relative; height: auto;">
+        <div class="row">
+          <div class="col-lg-7">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Crear Rol!</h1>
+              </div>
+              <form #form="ngForm" (ngSubmit)="Add(form)" class="user">
+                <div class="form-group">
+                  <!-- NameInput -->
+                  <input type="text" class="form-control form-control-user" placeholder="Nombre" name="name" id="name"
+                    required [(ngModel)]="roleService.selectedRole.name" #name="ngModel" autofocus>
+                  <app-ayuda *ngIf="name.invalid && name.touched" [errors]="name.errors"></app-ayuda>
+                </div>
+                <!-- Error Api -->
+                <a *ngIf="error" style="color: red;">{{error}}</a>
+                <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-user btn-block">
+                  Registrar Rol
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Role List -->
+          <div class="col-lg-5">
+            <div class="pt-3 pr-5 pl-5 pb-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Roles</h1>
+              </div>
+              <ul class="list-group">
+                <li *ngFor="let rol of roles" class="list-group-item list-group-item-action">
+                  <strong>{{rol.name}}</strong>
+                  <button (click)="delete(rol._id)" style='font-size:17px; float: right; cursor: pointer;'
+                    class="btn btn-danger">Eliminar</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>

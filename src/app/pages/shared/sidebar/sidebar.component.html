@@ -1,0 +1,16 @@
+<nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+  <div class="position-sticky">
+    <div class="list-group list-group-flush mx-3 mt-4">
+      <a class="list-group-item list-group-item-action py-2 ripple active" aria-current="true" style="cursor: pointer;"
+        [routerLink]="['/']">
+        <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Inicio</span>
+      </a>
+      <a class="list-group-item list-group-item-action py-2 ripple " style="cursor: pointer;" [routerLink]="['/user/']">
+        <i class="fas fa-chart-area fa-fw me-3"></i><span>Usuarios</span>
+      </a>
+      <a class="list-group-item list-group-item-action py-2 ripple" style="cursor: pointer;"
+        [routerLink]="['/user/role']"><i class="fas fa-lock fa-fw me-3"></i><span>Roles</span></a>
+
+    </div>
+  </div>
+</nav>
