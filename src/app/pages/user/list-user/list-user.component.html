@@ -45,9 +45,9 @@
               title="Usuario desactivado" (click)="checkbox.click(); habilitarUser(item)"
               class="badge bg-danger">Inactivo</span>
             <input class="checkbox d-none" #checkbox type="checkbox" [(ngModel)]=item.active>
-            <button class="btn btn-warning" style='font-size: 13px; cursor: pointer; margin-left: 5%; margin-right: 5%;'
+            <button class="btn btn-warning" style='font-size: 10px; cursor: pointer; margin-left: 5%; margin-right: 5%;'
               (click)="edit(item)">Editar</button>
-            <button class="btn btn-danger mr-3 ml-3" style="font-size: 13px" (click)="deleteUser(item._id)">Eliminar</button>
+            <button class="btn btn-danger mr-3 ml-3" style="font-size: 10px" (click)="deleteUser(item._id)">Eliminar</button>
           </td>
         </tr>
       </tbody>

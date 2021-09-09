@@ -13,8 +13,8 @@
           <div class="form-outline mb-2">
             <input type="text" class="form-control form-control-lg" placeholder="Nombre" name="name" id="name" required
               [(ngModel)]="authService.logedUser.name" #name="ngModel" autofocus>
-            <span *ngIf="name.invalid && name.touched" style="color: red;">Este campo es
-              requerido.</span>
+            <small *ngIf="name.invalid && name.touched" style="color: red;">Este campo es
+              requerido.</small>
           </div>
 
           <!-- UserName and CI input -->
@@ -22,16 +22,16 @@
             <div class="form-outline mb-2 col">
               <input required name="username" type="text" class="form-control form-control-lg"
                 placeholder="Nombre de Usuario" [(ngModel)]="authService.logedUser.username" #username="ngModel" />
-              <span *ngIf="username.invalid && username.touched" style="color: red;">Este campo es
-                requerido.</span>
+              <small *ngIf="username.invalid && username.touched" style="color: red;">Este campo es
+                requerido.</small>
             </div>
 
             <div class="form-outline mb-2 col">
               <input required name="CI" type="number" (keyup)="validarCI(form)" class="form-control form-control-lg"
                 placeholder="CI" [(ngModel)]="authService.logedUser.CI" #CI="ngModel" />
-              <span *ngIf="correctCI && CI.touched" style="color: red;">CI incorrecto.</span>
-              <span *ngIf="CI.invalid && CI.touched" style="color: red;">Este campo es
-                requerido.</span>
+              <small *ngIf="correctCI && CI.touched" style="color: red;">CI incorrecto.</small>
+              <small *ngIf="CI.invalid && CI.touched" style="color: red;">Este campo es
+                requerido.</small>
             </div>
           </div>
 
