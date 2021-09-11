@@ -1,0 +1,80 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title"><i class="fas fa-stream mr-1"></i>Listado de Productos</h3>
+    <!-- Button Create User -->
+    <button class="btn btn-primary" style="float: right;" (click)="crear()"><i class="fas fa-plus mr-1"></i>Nuevo
+      Producto</button>
+  </div>
+
+  <!-- Table -->
+  <div class="card-body">
+    <div *ngIf="!products || !products[0]">
+      No hay Productos que mostrar.
+    </div>
+    <table id="example1" class="table table-bordered table-striped" *ngIf="products && products[0]">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Costo</th>
+          <th>Cantidad</th>
+          <th>Um</th>
+          <th>Categoría</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of products">
+          <td>{{item.name}}</td>
+          <td>{{item.price}}</td>
+          <td>{{item.cost}}</td>
+          <td>{{item.amount}}</td>
+          <td>{{item.um}}</td>
+          <td>{{item.category.name}}</td>
+          <!-- Actions -->
+          <td>
+            <span *ngIf="item.state" title="Categoría activo" style="cursor: pointer;" (click)="checkbox.click(); deshabilitarProduct(item)"
+              class="badge bg-primary">Activo</span>
+            <span *ngIf="!item.state" title="Categoría desactivada" style="cursor: pointer;" (click)="checkbox.click(); habilitarProduct(item)"
+              class="badge bg-danger">Inactivo</span>
+            <input class="checkbox d-none" #checkbox type="checkbox" [(ngModel)]=item.active>
+            <button class="btn btn-warning" style='font-size: 10px; cursor: pointer; margin-left: 5%; margin-right: 5%;'
+              (click)="edit(item)">Editar</button>
+            <button class="btn btn-danger mr-3 ml-3" style="font-size: 10px"
+              (click)="deleteCategory(item._id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Costo</th>
+          <th>Cantidad</th>
+          <th>Um</th>
+          <th>Categoría</th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="card-footer" *ngIf="products && products[0]">
+    <ul class="pagination pagination-md" style="float: right;">
+      <li class="page-item"><a (click)="getProductsPaginated(1)" class="page-link">&laquo;</a></li>
+      <li *ngIf="currentPage > 3" class="page-item"><a class="page-link">...</a></li>
+      <li *ngIf="currentPage > 2" (click)="getProductsPaginated(currentPage-2)" class="page-item"><a
+          class="page-link">{{currentPage-2}}</a></li>
+      <li *ngIf="currentPage > 1" (click)="getProductsPaginated(currentPage)" class="page-item"><a
+          class="page-link">{{currentPage}}</a></li>
+      <li class="page-item active"><a class="page-link">{{currentPage}}</a></li>
+
+      <li *ngIf="currentPage < pages" (click)="getProductsPaginated(currentPage+1)" class="page-item"><a
+          class="page-link">{{currentPage}}</a></li>
+      <li *ngIf="currentPage < pages-1" (click)="getProductsPaginated(currentPage+2)" class="page-item"><a
+          class="page-link">{{currentPage+1}}</a></li>
+      <li *ngIf="currentPage < pages-2" class="page-item"><a class="page-link">...</a></li>
+      <li class="page-item"><a (click)="getProductsPaginated(pages)" class="page-link">&raquo;</a></li>
+    </ul>
+
+  </div>
+</div>

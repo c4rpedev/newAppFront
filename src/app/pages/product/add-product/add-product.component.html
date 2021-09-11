@@ -1,0 +1,90 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">
+      Nuevo Producto
+    </h4>
+  </div>
+  <div class="card-body">
+    <div class="tab-content p-0">
+      <div class="chart tab-pane active" id="revenue-chart1" style="position: relative; height: auto;">
+        <div class="row">
+          <div class="col-lg-7">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Crear Producto!</h1>
+              </div>
+              <form #form="ngForm" (ngSubmit)="Register(form)" class="user">
+
+                <!-- NameImput -->
+                <div class="form-group mb-2">
+                  <input type="text" hidden name="_id" id="_id" [(ngModel)]="productService.selectedProduct._id"
+                    #_id="ngModel">
+                  <input type="text" class="form-control form-control-user" placeholder="Nombre" name="name" id="name"
+                    required [(ngModel)]="productService.selectedProduct.name" #name="ngModel" autofocus>
+                  <small *ngIf="name.invalid && name.touched" style="color: red;">Este campo es
+                    requerido.</small>
+                </div>
+
+                <!-- PriceImput y CostImput -->
+                <div class="form-group row mb-2">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="number" class="form-control form-control-user" placeholder="Precio" name="price"
+                      id="price" required minlength="11" [(ngModel)]="productService.selectedProduct.price"
+                      #price="ngModel">
+                    <small *ngIf="price.invalid && price.touched" style="color: red;">Este campo es
+                      requerido.</small>
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control form-control-user" placeholder="Costo" name="cost"
+                      id="cost" required [(ngModel)]="productService.selectedProduct.cost" #cost="ngModel">
+                    <small *ngIf="cost.invalid && cost.touched" style="color: red;">Este campo es
+                      requerido.</small>
+                  </div>
+                </div>
+
+                <!-- UmImput -->
+                <div class="form-group mb-2">
+                  <input type="text" class="form-control form-control-user" placeholder="Um" name="um" id="um" required
+                    [(ngModel)]="productService.selectedProduct.um" #um="ngModel">
+                  <small *ngIf="um.invalid && um.touched" style="color: red;">Este campo es
+                    requerido.</small>
+                </div>
+
+                <!-- SelectCategory & CantidadImput -->
+                <div class="form-group row mb-2">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="number" class="form-control form-control-user" placeholder="Cantidad" name="amount"
+                      id="amount" required [(ngModel)]="productService.selectedProduct.amount" #amount="ngModel">
+                    <small *ngIf="amount.invalid && amount.touched" style="color: red;">Este campo es
+                      requerido.</small>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <select class="form-control" name="category" (click)="selectCat()" [(ngModel)]="productService.selectedProduct.category"
+                      #category="ngModel" required>
+                      <option *ngIf="!productService.selectedProduct._id">---Categoría---</option>
+                      <option *ngIf="productService.selectedProduct._id && select">{{productService.selectedProduct.category.name}}</option>
+                      <option *ngFor="let items of Categories">
+                        {{items.name}}
+                      </option>
+                    </select>
+                    <small *ngIf="category.invalid && category.touched" style="color: red;">Este campo es
+                      requerido.</small>
+                  </div>
+                </div>
+
+
+
+                <!-- Error de api -->
+                <a *ngIf="error" style="color: red;">{{error}}</a>
+
+                <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-user btn-block">
+                  Registrar Usuario
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

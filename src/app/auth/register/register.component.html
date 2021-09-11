@@ -48,7 +48,7 @@
           <!-- Password input -->
           <div class="row">
             <div class="form-outline mb-2 col">
-              <input type="password" class="form-control form-control-lg" placeholder="Repetir Contraseña"
+              <input type="password" class="form-control form-control-lg" placeholder="Contraseña"
                 name="password" id="password" required minlength="8" [(ngModel)]="authService.logedUser.password"
                 #password="ngModel">
               <div *ngIf="password.errors">
@@ -61,7 +61,7 @@
                 coinciden.</small>
             </div>
             <div class="form-outline mb-2 col">
-              <input type="password" class="form-control form-control-lg" placeholder="Contraseña" name="checkpass"
+              <input type="password" class="form-control form-control-lg" placeholder="Repetir Contraseña" name="checkpass"
                 id="checkpass" required minlength="8" pattern="{{authService.logedUser.password}}" #cpass="ngModel"
                 placeholder="Contraseña" [(ngModel)]="repeatpassword">
               <div *ngIf="cpass.errors">

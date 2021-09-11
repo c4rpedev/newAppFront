@@ -1,0 +1,40 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">
+      Nueva Categoría
+    </h4>
+  </div>
+  <div class="card-body">
+    <div class="tab-content p-0">
+      <div class="chart tab-pane active" id="revenue-chart1" style="position: relative; height: auto;">
+        <div class="row">
+          <div class="col-lg-7">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Crear Categoría!</h1>
+              </div>
+              <form #form="ngForm" (ngSubmit)="Register(form)" class="user">
+
+                <!-- NameImput -->
+                <div class="form-group mb-2">
+                  <input type="text" hidden name="_id" id="_id" [(ngModel)]="categoryService.selectedCategory._id"
+                    #_id="ngModel">
+                  <input type="text" class="form-control form-control-user" placeholder="Nombre" name="name" id="name"
+                    required [(ngModel)]="categoryService.selectedCategory.name" #name="ngModel" autofocus>
+                  <small *ngIf="name.invalid && name.touched" style="color: red;">Este campo es
+                    requerido.</small>
+                </div>
+
+                <!-- Error de api -->
+                <a *ngIf="error" style="color: red;">{{error}}</a>
+
+                <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-user btn-block">
+                  Registrar Categoría
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

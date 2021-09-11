@@ -11,7 +11,9 @@ export class AuthService {
 
   logedUser: User;
   roles: Role[];
+
   readonly URL = 'https://newappnode.herokuapp.com/api/auth';
+
 
   constructor(public route: Router, private http: HttpClient) {
     this.logedUser = new User();
