@@ -97,7 +97,7 @@
             <img *ngIf="!productService.selectedProduct.picture" class="img-fluid mt-3" style="width: 500px; height: 400px;" (click)="picture.click()"
               [src]="photoSelected || 'assets/img/no-image.png'" alt="">
             <img *ngIf="productService.selectedProduct.picture" class="img-fluid mt-3" style="width: 500px; height: 400px;" (click)="picture.click()"
-              [src]="photoSelected || 'http://localhost:3000/' + productService.selectedProduct.picture" alt="">
+              [src]="photoSelected || 'https://newappnode.herokuapp.com/' + productService.selectedProduct.picture" alt="">
           </div>
         </div>
       </div>
