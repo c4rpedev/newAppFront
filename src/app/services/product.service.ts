@@ -12,6 +12,7 @@ export class ProductService {
   CarProducts: [[Product, number]];
   totalCarProducts = 0;
   precioTotCarProducts = 0;
+  editOrder = false;
 
   readonly URL = 'https://newappnode.herokuapp.com/api/product';
 
@@ -64,6 +65,12 @@ export class ProductService {
         'x-access-token': token
       }
     });
+  }
+
+  updateProductImg(Product: Product, file: File) {
+    const fd = new FormData();
+    fd.append('picture', file)
+    return this.http.put(this.URL + '/img' + `/${Product._id}`, fd);
   }
 
   deleteProduct(_id: string) {

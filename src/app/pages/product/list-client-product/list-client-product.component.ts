@@ -24,6 +24,16 @@ export class ListClientProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducts();
+    this.cleanOrder();
+  }
+
+  //Limpiando datos de la orden
+  cleanOrder() {
+    if (this.productService.editOrder) {
+      this.productService.CarProducts = null;
+      this.productService.totalCarProducts = 0;
+      this.productService.precioTotCarProducts = 0;
+    }
   }
 
   // Datos de la tabla
@@ -80,33 +90,40 @@ export class ListClientProductComponent implements OnInit {
 
     var existe = false;
     var idProd = item._id;
-    var name = item.name
-    var success = true;
+    var success = false;
     var price = item.price
 
-    //verificar si el carrito está vacío
-    if (this.productService.CarProducts == null) {
-      this.productService.CarProducts = [[item, cant]]
-    } else {
-      //verificar si ya está el producto en el carrito
-      for (let index = 0; index < this.productService.CarProducts.length; index++) {
-        if (this.productService.CarProducts[index][0]._id == idProd) {
-          existe = true;
-          this.productService.CarProducts[index][1] = this.productService.CarProducts[index][1] + cant;
-          index = this.productService.CarProducts.length;
+    if (cant <= item.amount) {
+      //verificar si el carrito está vacío
+      if (this.productService.CarProducts == null) {
+        this.productService.CarProducts = [[item, cant]]
+        success = true;
+      } else {
+        //verificar si ya está el producto en el carrito
+        for (let index = 0; index < this.productService.CarProducts.length; index++) {
+          if (this.productService.CarProducts[index][0]._id == idProd) {
+            existe = true;
+            if (this.productService.CarProducts[index][1] + cant <= item.amount) {
+              this.productService.CarProducts[index][1] = this.productService.CarProducts[index][1] + cant;
+              success = true;
+            } else {
+              console.log("No hay más de ese producto en el Almacén!!")
+            }
+            index = this.productService.CarProducts.length;
+          }
+        }
+        if (!existe) {
+          this.productService.CarProducts.push([item, cant]);
+          success = true;
         }
       }
-      if (!existe) {
-        this.productService.CarProducts.push([item, cant]);
+      if (success) {
+        this.productService.totalCarProducts = this.productService.totalCarProducts + cant;
+        this.productService.precioTotCarProducts = this.productService.precioTotCarProducts + (price * cant);
       }
+    } else {
+      console.log("No hay más de ese producto en el Almacén")
     }
-    this.productService.totalCarProducts = this.productService.totalCarProducts + cant;
-    this.productService.precioTotCarProducts = this.productService.precioTotCarProducts + (price * cant);
-
-    console.log(this.productService.totalCarProducts + ' <--totalCarProducts')
-    console.log(this.productService.precioTotCarProducts + ' <--precioTotalCarProducts')
-    console.log(this.productService.CarProducts)
   }
-
 
 }

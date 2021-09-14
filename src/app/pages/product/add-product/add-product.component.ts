@@ -40,16 +40,37 @@ export class AddProductComponent implements OnInit {
 
   //registra o actualiza producto
   Register(form: NgForm) {
+    //Verificar si es un nuevo producto
     if (form.value._id) {
-      this.productService.updateProduct(form.value)
-        .subscribe(res => {
-          this.error = null;
-          this.productService.selectedProduct = new Product();
-          this.route.navigate(['/product/']);
-        },
-          err => {
-            this.error = err['error']['message'];
-          })
+      //Verificar si se modificó la imagen
+      if (this.file) {
+        this.productService.updateProductImg(form.value, this.file)
+          .subscribe(res => {
+            form.value.picture = res['path'];
+            this.productService.updateProduct(form.value)
+              .subscribe(res => {
+                this.error = null;
+                this.productService.selectedProduct = new Product();
+                this.route.navigate(['/product/']);
+              },
+                err => {
+                  this.error = err['error']['message'];
+                })
+          },
+            err => {
+              this.error = err['error']['message'];
+            })
+      } else {
+        this.productService.updateProduct(form.value)
+          .subscribe(res => {
+            this.error = null;
+            this.productService.selectedProduct = new Product();
+            this.route.navigate(['/product/']);
+          },
+            err => {
+              this.error = err['error']['message'];
+            })
+      }
     } else {
       form.value.state = true;
       this.productService.postProduct(form.value, this.file)
@@ -77,7 +98,7 @@ export class AddProductComponent implements OnInit {
   }
 
   //elimina el primer valor del select en caso de editar un producto
-  selectCat(){
+  selectCat() {
     this.select = false;
   }
 

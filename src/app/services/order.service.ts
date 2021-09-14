@@ -56,10 +56,29 @@ export class OrderService {
   postOrder() {
     var order = {
       user: this.authService.logedUser._id,
+      userName: this.authService.logedUser.name,
       products: this.productService.CarProducts
     };
-    // const token = sessionStorage.getItem('x-access-token');
     return this.http.post(this.URL, order);
+  }
+
+  deleteOrder(_id: string) {
+    const token = localStorage.getItem('x-access-token');
+    return this.http.delete(this.URL + `/${_id}`, {
+      headers: {
+        'x-access-token': token
+      }
+    });
+  }
+
+  updateOrder() {
+    var Order = this.selectedOrder;
+    const token = localStorage.getItem('x-access-token');
+    return this.http.put(this.URL + `/${Order._id}`, Order, {
+      headers: {
+        'x-access-token': token
+      }
+    });
   }
 
 }

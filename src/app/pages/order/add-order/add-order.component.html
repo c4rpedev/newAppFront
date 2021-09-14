@@ -1,19 +1,19 @@
 <div class="row">
   <section class="col-lg-8 connectedSortable">
-    <!-- Custom tabs (Charts with tabs)-->
     <div class="card">
       <div class="card-body">
         <div class="tab-content p-0">
           <div class="chart tab-pane active" id="revenue-chart1" style="position: relative; height: auto;">
             <div class="row">
-              <h3><strong><i class="fas fa-shopping-basket mr-2"
-                    style="font-size: 35px;"></i>Pedido({{productService.totalCarProducts}})</strong></h3>
+              <h3><strong><i class="fas fa-shopping-basket mr-2" style="font-size: 35px;"></i>Pedido <span
+                    *ngIf="productService.editOrder">(No. {{orderService.selectedOrder.numorder}})
+                    {{orderService.selectedOrder.userName}}</span>
+                </strong></h3>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- /.card -->
 
     <!-- Productos -->
     <div *ngFor="let product of productService.CarProducts" class="card p-4">
@@ -30,7 +30,7 @@
           <div style="font-size: 20px;"><strong>Precio:
               ${{product[0].price}}</strong></div>
         </div>
-        <div class="col-4">
+        <div class="col-4" *ngIf="!productService.editOrder">
           <div class="row m-5">
             <div class="input-group mb-3">
               <span class="input-group-append">
@@ -45,28 +45,39 @@
             </div>
           </div>
           <button class="btn btn-danger" style="float: right;" (click)="deleteProductCart(product[0])">Eliminar
-            producto
-            de la cesta</button>
+            producto del Pedido</button>
         </div>
 
       </div>
     </div>
     <!--/.Productos -->
-
-
-
-
-
-
   </section>
 
   <section class="col-lg-4 connectedSortable">
     <div class="card p-4">
-      <strong style="margin-top: 2;">Total<span
-          style="float: right; font-size: 25px;">${{productService.precioTotCarProducts}}</span></strong>
+      <strong style="margin-top: 2;">Total:
+        <span  style="font-size: 25px;" *ngIf="productService.editOrder">{{productService.totalCarProducts}} Productos</span>
+        <span  style="float: right; font-size: 25px;">${{productService.precioTotCarProducts}}</span>
+      </strong>
 
-      <button (click)="buy()"
+      <button *ngIf="!productService.editOrder" (click)="buy()"
         class="btn btn-danger btn-block">COMPRAR({{productService.totalCarProducts}})</button>
+
+
+      <!-- Editar Estado de la Orden -->
+      <form *ngIf="productService.editOrder" #form="ngForm" (ngSubmit)="editOrder(form)" class="user">
+        <div class="col">
+          <select class="form-control" name="category" [(ngModel)]="orderService.selectedOrder.state"
+            #category="ngModel" required>
+            <option>{{orderService.selectedOrder.state}}</option>
+            <option *ngIf="orderService.selectedOrder.state != 'En Proceso'">En Proceso</option>
+            <option *ngIf="orderService.selectedOrder.state != 'Atrasado'">Atrasado</option>
+            <option *ngIf="orderService.selectedOrder.state != 'Finalizado'">Finalizado</option>
+          </select>
+        </div>
+        <button class="btn btn-success btn-block mt-2">Editar</button>
+      </form>
+
     </div>
   </section>
 </div>

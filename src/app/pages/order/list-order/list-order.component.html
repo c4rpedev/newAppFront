@@ -24,13 +24,15 @@
       <tbody>
         <tr *ngFor="let item of orders">
           <td>{{item.numorder}}</td>
-          <td>{{item.userId}}</td>
+          <td>{{item.userName}}</td>
           <td>{{precio(item)}}</td>
           <td>{{item.state}}</td>
           <!-- Actions -->
           <td>
             <button class="btn btn-warning" style='font-size: 10px; cursor: pointer; margin-left: 5%; margin-right: 5%;'
               (click)="edit(item)">Editar</button>
+            <button class="btn btn-danger mr-3 ml-3" style="font-size: 10px"
+              (click)="deleteOrder(item._id)">Eliminar</button>
           </td>
         </tr>
       </tbody>
