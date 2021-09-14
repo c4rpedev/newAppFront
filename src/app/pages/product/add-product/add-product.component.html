@@ -74,15 +74,30 @@
                 </div>
 
 
+                <!-- Imagen Imput -->
+                <div class="form-group" hidden>
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" (change)="saveImg($event)" class="custom-file-input" id="exampleInputFile"
+                        placeholder="Imagen" name="picture" required #picture>
+                    </div>
+                  </div>
+                </div>
 
                 <!-- Error de api -->
                 <a *ngIf="error" style="color: red;">{{error}}</a>
 
                 <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-user btn-block">
-                  Registrar Usuario
+                  Registrar Producto
                 </button>
               </form>
             </div>
+          </div>
+          <div class="col-lg-5 d-none d-lg-block">
+            <img *ngIf="!productService.selectedProduct.picture" class="img-fluid mt-3" style="width: 500px; height: 400px;" (click)="picture.click()"
+              [src]="photoSelected || 'assets/img/no-image.png'" alt="">
+            <img *ngIf="productService.selectedProduct.picture" class="img-fluid mt-3" style="width: 500px; height: 400px;" (click)="picture.click()"
+              [src]="photoSelected || 'http://localhost:3000/' + productService.selectedProduct.picture" alt="">
           </div>
         </div>
       </div>

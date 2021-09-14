@@ -1,0 +1,69 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title"><i class="fas fa-stream mr-1"></i>Listado de Pedidos</h3>
+    <!-- Button Create User -->
+    <button class="btn btn-primary" style="float: right;" (click)="crear()"><i class="fas fa-plus mr-1"></i>Nuevo
+      Pedido</button>
+  </div>
+
+  <!-- Table -->
+  <div class="card-body">
+    <div *ngIf="!orders || !orders[0]">
+      No hay Pedidos que mostrar.
+    </div>
+    <table id="example1" class="table table-bordered table-striped" *ngIf="orders && orders[0]">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Usuario</th>
+          <th>Precio</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of orders">
+          <td>{{item.numorder}}</td>
+          <td>{{item.userId}}</td>
+          <td>{{precio(item)}}</td>
+          <td>{{item.state}}</td>
+          <!-- Actions -->
+          <td>
+            <button class="btn btn-warning" style='font-size: 10px; cursor: pointer; margin-left: 5%; margin-right: 5%;'
+              (click)="edit(item)">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th>No.</th>
+          <th>Usuario</th>
+          <th>Precio</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="card-footer" *ngIf="orders && orders[0]">
+    <ul class="pagination pagination-md" style="float: right;">
+      <li class="page-item"><a (click)="getOrdersPaginated(1)" class="page-link">&laquo;</a></li>
+      <li *ngIf="currentPage > 3" class="page-item"><a class="page-link">...</a></li>
+      <li *ngIf="currentPage > 2" (click)="getOrdersPaginated(currentPage-2)" class="page-item"><a
+          class="page-link">{{currentPage-2}}</a></li>
+      <li *ngIf="currentPage > 1" (click)="getOrdersPaginated(currentPage)" class="page-item"><a
+          class="page-link">{{currentPage}}</a></li>
+      <li class="page-item active"><a class="page-link">{{currentPage}}</a></li>
+
+      <li *ngIf="currentPage < pages" (click)="getOrdersPaginated(currentPage+1)" class="page-item"><a
+          class="page-link">{{currentPage}}</a></li>
+      <li *ngIf="currentPage < pages-1" (click)="getOrdersPaginated(currentPage+2)" class="page-item"><a
+          class="page-link">{{currentPage+1}}</a></li>
+      <li *ngIf="currentPage < pages-2" class="page-item"><a class="page-link">...</a></li>
+      <li class="page-item"><a (click)="getOrdersPaginated(pages)" class="page-link">&raquo;</a></li>
+    </ul>
+
+  </div>
+</div>

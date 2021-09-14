@@ -1,3 +1,4 @@
+import { ListClientProductComponent } from './list-client-product/list-client-product.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ListCategoryComponent } from './list-category/list-category.component';
@@ -24,6 +25,10 @@ const routes: Routes = [
       {
         path:'add-categories',
         component: AddCategoryComponent
+      },
+      {
+        path:'list-client-product',
+        component: ListClientProductComponent
       },
       { path: '', pathMatch: 'full', redirectTo: 'list' },
     ],

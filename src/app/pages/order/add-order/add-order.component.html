@@ -1,0 +1,72 @@
+<div class="row">
+  <section class="col-lg-8 connectedSortable">
+    <!-- Custom tabs (Charts with tabs)-->
+    <div class="card">
+      <div class="card-body">
+        <div class="tab-content p-0">
+          <div class="chart tab-pane active" id="revenue-chart1" style="position: relative; height: auto;">
+            <div class="row">
+              <h3><strong><i class="fas fa-shopping-basket mr-2"
+                    style="font-size: 35px;"></i>Pedido({{productService.totalCarProducts}})</strong></h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.card -->
+
+    <!-- Productos -->
+    <div *ngFor="let product of productService.CarProducts" class="card p-4">
+      <div class="row">
+        <div class="col-4">
+          <img [src]="'https://newappnode.herokuapp.com/' + product[0].picture" width="200px" height="200px" alt="">
+        </div>
+        <div class="col-4">
+          <p style="font-size: 20px;"><strong>{{product[0].name}}</strong></p>
+          <p>Costo: {{product[0].cost}}</p>
+          <p>Um: {{product[0].um}}</p>
+          <p>Categoría: {{product[0].category.name}}</p>
+          <p>Cantidad a comprar: {{product[1]}}</p>
+          <div style="font-size: 20px;"><strong>Precio:
+              ${{product[0].price}}</strong></div>
+        </div>
+        <div class="col-4">
+          <div class="row m-5">
+            <div class="input-group mb-3">
+              <span class="input-group-append">
+                <button class="btn btn-danger" (click)="down(product[0])"
+                  style="cursor: pointer; width: 38px; height: 38px; border-top-left-radius: 10%; border-bottom-left-radius: 10%;">-</button>
+              </span>
+              <input class="form-control col-4" style="border-radius: 0%;" disabled placeholder={{product[1]}}>
+              <span class="input-group-append">
+                <button class="btn btn-danger" (click)="up(product[0])"
+                  style="cursor: pointer; width: 38px; height: 38px;">+</button>
+              </span>
+            </div>
+          </div>
+          <button class="btn btn-danger" style="float: right;" (click)="deleteProductCart(product[0])">Eliminar
+            producto
+            de la cesta</button>
+        </div>
+
+      </div>
+    </div>
+    <!--/.Productos -->
+
+
+
+
+
+
+  </section>
+
+  <section class="col-lg-4 connectedSortable">
+    <div class="card p-4">
+      <strong style="margin-top: 2;">Total<span
+          style="float: right; font-size: 25px;">${{productService.precioTotCarProducts}}</span></strong>
+
+      <button (click)="buy()"
+        class="btn btn-danger btn-block">COMPRAR({{productService.totalCarProducts}})</button>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,98 @@
+
+<!-- Main row -->
+<div class="row">
+  <!-- Left col -->
+  <section class="col-lg-12">
+    <!-- Custom tabs (Charts with tabs)-->
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">
+          <i class="fas fa-bullhorn"></i>
+          Title
+        </h4>
+        <button class="btn btn-primary" style="float: right;" [routerLink]="['/order/add']">Crear Pedido ({{productService.totalCarProducts}})</button>
+      </div><!-- /.card-header -->
+      <div class="card-body">
+        <div class="tab-content p-0">
+          <!-- Morris chart - Sales -->
+          <div class="chart"style="position: relative; height: auto;">
+            <div *ngIf="!showProducts[0][0]._id">
+              No hay productos en este momento.
+            </div>
+            <div class="row" *ngIf="showProducts[0][0]._id">
+              <section *ngFor="let items of showProducts" class="col-lg-4">
+                <div *ngFor="let item of items" class="card direct-chat direct-chat-primary">
+                  <div class="card-header">
+                    <h5 class="card-title">{{item.name}}</h5>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <!-- BODY here -->
+                    <img *ngIf="item.picture" [src]="'https://newappnode.herokuapp.com/' + item.picture" width="100%"
+                      height="250px" alt="">
+                    <!--/.BODY-->
+
+                  </div>
+                  <!-- /.card-body -->
+                  <div class="card-footer">
+                    <form (submit)="addProduct(cantidad, item)">
+                      <div class="row">
+                        <div class="col-7">
+                          <h5><strong>Precio: ${{item.price}}</strong></h5>
+                        </div>
+                        <div class="input-group col-5">
+                          <input type="number" name="cant" placeholder="0" #cantidad style="height: 40px;"
+                            class="form-control">
+                          <span class="input-group-append">
+                            <button type="submit" class="btn btn-primary" style="height: 40px;">Añadir</button>
+                          </span>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- /.card-footer-->
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="card-footer" *ngIf="showProducts[0][0]._id">
+        <ul *ngIf="DealsNewV == 'Promociones del día'" class="pagination pagination-md" style="float: right;">
+          <li class="page-item"><a (click)="getProducts(1)" class="page-link">&laquo;</a></li>
+          <li *ngIf="currentPage > 3" class="page-item"><a class="page-link">...</a></li>
+          <li *ngIf="currentPage > 2" (click)="getProducts(beforepage-1)" class="page-item"><a
+              class="page-link">{{beforepage-1}}</a></li>
+          <li *ngIf="currentPage > 1" (click)="getProducts(beforepage)" class="page-item"><a
+              class="page-link">{{beforepage}}</a></li>
+          <li class="page-item active"><a class="page-link">{{currentPage}}</a></li>
+
+          <li *ngIf="currentPage < pages" (click)="getProducts(nextpage)" class="page-item"><a
+              class="page-link">{{nextpage}}</a></li>
+          <li *ngIf="currentPage < pages-1" (click)="getProducts(nextpage+1)" class="page-item"><a
+              class="page-link">{{nextpage+1}}</a></li>
+          <li *ngIf="currentPage < pages-2" class="page-item"><a class="page-link">...</a></li>
+          <li class="page-item"><a (click)="getProducts(pages)" class="page-link">&raquo;</a></li>
+        </ul>
+        <ul *ngIf="DealsNewV != 'Promociones del día'" class="pagination pagination-md" style="float: right;">
+          <li class="page-item"><a (click)="getProductsNew(1)" class="page-link">&laquo;</a></li>
+          <li *ngIf="currentPageNew > 3" class="page-item"><a class="page-link">...</a></li>
+          <li *ngIf="currentPageNew > 2" (click)="getProductsNew(beforepageNew-1)" class="page-item"><a
+              class="page-link">{{beforepage-1}}</a></li>
+          <li *ngIf="currentPageNew > 1" (click)="getProductsNew(beforepageNew)" class="page-item"><a
+              class="page-link">{{beforepageNew}}</a></li>
+          <li class="page-item active"><a class="page-link">{{currentPageNew}}</a></li>
+
+          <li *ngIf="currentPageNew < pagesNew" (click)="getProductsNew(nextpageNew)" class="page-item"><a
+              class="page-link">{{nextpageNew}}</a></li>
+          <li *ngIf="currentPageNew < pagesNew-1" (click)="getProductsNew(nextpageNew+1)" class="page-item"><a
+              class="page-link">{{nextpageNew+1}}</a></li>
+          <li *ngIf="currentPageNew < pagesNew-2" class="page-item"><a class="page-link">...</a></li>
+          <li class="page-item"><a (click)="getProductsNew(pagesNew)" class="page-link">&raquo;</a></li>
+        </ul>
+      </div> -->
+    </div>
+    <!-- /.card -->
+  </section>
+</div>

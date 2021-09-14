@@ -13,6 +13,10 @@ import { Product } from 'src/app/models/product';
 })
 export class AddProductComponent implements OnInit {
 
+  public file: File;
+  public photoSelected: string | ArrayBuffer;
+  public newFile = false;
+
   error: string;
   //array Categorías
   Categories: Category[];
@@ -48,15 +52,27 @@ export class AddProductComponent implements OnInit {
           })
     } else {
       form.value.state = true;
-      this.productService.postProduct(form.value)
+      this.productService.postProduct(form.value, this.file)
         .subscribe(res => {
           this.error = null;
           this.productService.selectedProduct = new Product();
+          this.photoSelected = null;
           this.route.navigate(['/product/']);
         },
           err => {
             this.error = err['error']['message'];
           })
+    }
+  }
+
+  saveImg(event): any {
+    if (event.target.files && event.target.files[0]) {
+      this.file = <File>event.target.files[0];
+      //image preview
+      const reader = new FileReader();
+      reader.onload = e => this.photoSelected = reader.result;
+      reader.readAsDataURL(this.file)
+      this.newFile = true;
     }
   }
 

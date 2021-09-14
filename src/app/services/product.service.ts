@@ -9,6 +9,9 @@ export class ProductService {
 
   selectedProduct: Product;
   Products: Product[];
+  CarProducts: [[Product, number]];
+  totalCarProducts = 0;
+  precioTotCarProducts = 0;
 
   readonly URL = 'https://newappnode.herokuapp.com/api/product';
 
@@ -44,6 +47,16 @@ export class ProductService {
     });
   }
 
+  getProductPaginatedActive(page?: number) {
+    if (!page) { page = 1 }
+    const token = localStorage.getItem('x-access-token');
+    return this.http.get(this.URL + '/paginatedactive/' + page, {
+      headers: {
+        'x-access-token': token
+      }
+    });
+  }
+
   updateProduct(Product: Product) {
     const token = localStorage.getItem('x-access-token');
     return this.http.put(this.URL + `/${Product._id}`, Product, {
@@ -62,9 +75,18 @@ export class ProductService {
     });
   }
 
-  postProduct(product: Product) {
+  postProduct(Product: Product, file: File) {
+    const fd = new FormData();
+    fd.append('name', Product.name);
+    fd.append('price', Product.price.toString());
+    fd.append('cost', Product.cost.toString())
+    fd.append('um', Product.um)
+    fd.append('picture', file)
+    fd.append('amount', Product.amount.toString())
+    fd.append('state', Product.state.toString())
+    fd.append('category', Product.category)
     const token = localStorage.getItem('x-access-token');
-    return this.http.post(this.URL, product, {
+    return this.http.post(this.URL, fd, {
       headers: {
         'x-access-token': token
       }

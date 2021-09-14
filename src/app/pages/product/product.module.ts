@@ -9,9 +9,10 @@ import { AddCategoryComponent } from './add-category/add-category.component';
 
 //imports
 import { FormsModule } from '@angular/forms';
+import { ListClientProductComponent } from './list-client-product/list-client-product.component';
 
 @NgModule({
-  declarations: [ListProductComponent, AddProductComponent, ListCategoryComponent, AddCategoryComponent],
+  declarations: [ListProductComponent, AddProductComponent, ListCategoryComponent, AddCategoryComponent, ListClientProductComponent],
   imports: [
     CommonModule,
     ProductRoutingModule,
