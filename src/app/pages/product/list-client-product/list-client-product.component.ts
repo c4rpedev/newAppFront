@@ -33,6 +33,7 @@ export class ListClientProductComponent implements OnInit {
       this.productService.CarProducts = null;
       this.productService.totalCarProducts = 0;
       this.productService.precioTotCarProducts = 0;
+      this.productService.editOrder = false;
     }
   }
 
